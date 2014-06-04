@@ -1,0 +1,10 @@
+PODS:
+  - ESTimePicker (0.2.3)
+
+DEPENDENCIES:
+  - ESTimePicker
+
+SPEC CHECKSUMS:
+  ESTimePicker: b83807a4e9b978acf60707564da07c3cbf495868
+
+COCOAPODS: 0.33.1
