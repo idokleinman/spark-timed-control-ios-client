@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol WHTimeSelectDelegate <NSObject>
+
+@required
+-(void)timeSelectedString:(NSString *)newTime;
+
+@end
 
 @interface WHTimeSelectViewController : UIViewController
-@property (nonatomic) NSInteger presetHours;
-@property (nonatomic) NSInteger presetMinutes;
+@property (nonatomic) NSInteger presetHour;
+@property (nonatomic) NSInteger presetMinute;
+@property (nonatomic) id <WHTimeSelectDelegate> delegate;
 
 @end

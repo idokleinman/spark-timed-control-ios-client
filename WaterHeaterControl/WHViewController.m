@@ -10,19 +10,51 @@
 #import <ESTimePicker/ESTimePicker.h>
 #import "WHTimeSelectViewController.h"
 
-@interface WHViewController ()
-@property (nonatomic) NSInteger buttonTag;
+@interface WHViewController () <WHTimeSelectDelegate>
+
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray* dayNameLabels;
+@property (weak, nonatomic) IBOutlet UILabel *serverTimeLabel;
+
+
+//@property (nonatomic) NSInteger buttonTag;
+@property (strong, nonatomic) UIButton *timeButtonTouched;
 //@property (nonatomic) NSInteger lastMinutes, lastHours;
 @end
 
 @implementation WHViewController
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-
+   
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSDate *today = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSDateComponents *weekdayComponents =[gregorian components:NSWeekdayCalendarUnit fromDate:today];
+    
+    NSInteger weekday = [weekdayComponents weekday];
+    
+    for (UILabel *label in self.dayNameLabels)
+    {
+        if (weekday == label.tag)
+        {
+            [label setFont:[UIFont boldSystemFontOfSize:18]];
+        }
+        else
+        {
+            [label setFont:[UIFont systemFontOfSize:17]];
+        }
+        
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -31,18 +63,38 @@
 
 - (IBAction)timeButtonsTouched:(id)sender
 {
-    UIButton *btn = sender;
-    self.buttonTag = btn.tag;
+//    UIButton *btn = sender;
+//    self.buttonTag = btn.tag;
 
+    self.timeButtonTouched = sender;
     
-//    UIButton *btn = (UIButton *)self.view viewWithTag:
-    WHTimeSelectViewController *timeVC = [[WHTimeSelectViewController alloc] init];
+    [self performSegueWithIdentifier:@"time" sender:self];
     
-    [self.navigationController pushViewController:timeVC animated:YES];
     
-//    [self performSegueWithIdentifier:@"time" sender:self];
+//    [self.navigationController pushViewController:timeVC animated:YES];
     
 
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    WHTimeSelectViewController *timeVC = segue.destinationViewController;
+    
+    NSString *timeStr = self.timeButtonTouched.titleLabel.text;
+    NSArray *timeStrComponents = [timeStr componentsSeparatedByString:@":"];
+    NSInteger hour = [timeStrComponents[0] intValue];
+    NSInteger minute = [timeStrComponents[1] intValue];
+    
+    [timeVC setPresetHour:hour];
+    [timeVC setPresetMinute:minute];
+    [timeVC setDelegate:self];
+    
+}
+
+
+-(void)timeSelectedString:(NSString *)newTime
+{
+    self.timeButtonTouched.titleLabel.text = newTime;
 }
 
 @end

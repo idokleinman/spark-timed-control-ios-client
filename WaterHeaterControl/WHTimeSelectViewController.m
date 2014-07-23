@@ -13,7 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *hoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *minutesLabel;
-
+@property (strong, nonatomic) ESTimePicker *timePicker;
 @end
 
 @implementation WHTimeSelectViewController
@@ -31,14 +31,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    ESTimePicker *timePicker = [[ESTimePicker alloc] initWithDelegate:self]; // Delegate is optional
-    [timePicker setFrame:CGRectMake(10, 100, 300, 300)];
-    [self.view addSubview:timePicker];
-    [timePicker setNotation24Hours:YES];
-    [timePicker setMinutes:self.presetMinutes];
-    [timePicker setHours:self.presetHours];
+    self.timePicker = [[ESTimePicker alloc] initWithDelegate:self]; // Delegate is optional
+    [self.timePicker setFrame:CGRectMake(10, 100, 300, 300)];
+    [self.view addSubview:self.timePicker];
+    [self.timePicker setNotation24Hours:YES];
+    [self.timePicker setMinutes:(int)self.presetMinute];
+    [self.timePicker setHours:(int)self.presetHour];
+    self.hoursLabel.text = [NSString stringWithFormat:@"%02d",(int)self.presetHour];
+    self.minutesLabel.text = [NSString stringWithFormat:@"%02d",(int)self.presetMinute];
+    
 
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -47,6 +52,8 @@
 }
 
 - (IBAction)doneButton:(id)sender {
+
+    [self.delegate timeSelectedString:[NSString stringWithFormat:@"%02d:%02d",self.timePicker.hours,self.timePicker.minutes]];
     [self.navigationController popViewControllerAnimated:YES];
     
 }
@@ -65,13 +72,13 @@
 
 - (void)timePickerHoursChanged:(ESTimePicker *)timePicker toHours:(int)hours
 {
-    [self.hoursLabel setText:[NSString stringWithFormat:@"%2d",hours]];
+    [self.hoursLabel setText:[NSString stringWithFormat:@"%02d",hours]];
     
 }
 
 - (void)timePickerMinutesChanged:(ESTimePicker *)timePicker toMinutes:(int)minutes
 {
-    [self.minutesLabel setText:[NSString stringWithFormat:@"%2d",minutes]];
+    [self.minutesLabel setText:[NSString stringWithFormat:@"%02d",minutes]];
 }
 
 @end
