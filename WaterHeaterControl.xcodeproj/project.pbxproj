@@ -18,24 +18,9 @@
 		50BB863E193DD3D500E92E46 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50BB863C193DD3D500E92E46 /* Main_iPad.storyboard */; };
 		50BB8641193DD3D500E92E46 /* WHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8640193DD3D500E92E46 /* WHViewController.m */; };
 		50BB8643193DD3D500E92E46 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50BB8642193DD3D500E92E46 /* Images.xcassets */; };
-		50BB864A193DD3D500E92E46 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8649193DD3D500E92E46 /* XCTest.framework */; };
-		50BB864B193DD3D500E92E46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8627193DD3D400E92E46 /* Foundation.framework */; };
-		50BB864C193DD3D500E92E46 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB862B193DD3D400E92E46 /* UIKit.framework */; };
-		50BB8654193DD3D500E92E46 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50BB8652193DD3D500E92E46 /* InfoPlist.strings */; };
-		50BB8656193DD3D500E92E46 /* WaterHeaterControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8655193DD3D500E92E46 /* WaterHeaterControlTests.m */; };
 		50BB8661193DE0A000E92E46 /* WHTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */; };
 		50C1E71D19800AD900BFB2D2 /* WHSparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C1E71C19800AD900BFB2D2 /* WHSparkCloud.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		50BB864D193DD3D500E92E46 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 50BB861C193DD3D400E92E46 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 50BB8623193DD3D400E92E46;
-			remoteInfo = WaterHeaterControl;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		50BB8624193DD3D400E92E46 /* WaterHeaterControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterHeaterControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,11 +38,7 @@
 		50BB863F193DD3D500E92E46 /* WHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WHViewController.h; sourceTree = "<group>"; };
 		50BB8640193DD3D500E92E46 /* WHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WHViewController.m; sourceTree = "<group>"; };
 		50BB8642193DD3D500E92E46 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		50BB8648193DD3D500E92E46 /* WaterHeaterControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaterHeaterControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50BB8649193DD3D500E92E46 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		50BB8651193DD3D500E92E46 /* WaterHeaterControlTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WaterHeaterControlTests-Info.plist"; sourceTree = "<group>"; };
-		50BB8653193DD3D500E92E46 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		50BB8655193DD3D500E92E46 /* WaterHeaterControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterHeaterControlTests.m; sourceTree = "<group>"; };
 		50BB865F193DE0A000E92E46 /* WHTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHTimeSelectViewController.h; sourceTree = "<group>"; };
 		50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHTimeSelectViewController.m; sourceTree = "<group>"; };
 		50C1E71B19800AD800BFB2D2 /* WHSparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHSparkCloud.h; sourceTree = "<group>"; };
@@ -78,16 +59,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		50BB8645193DD3D500E92E46 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				50BB864A193DD3D500E92E46 /* XCTest.framework in Frameworks */,
-				50BB864C193DD3D500E92E46 /* UIKit.framework in Frameworks */,
-				50BB864B193DD3D500E92E46 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -95,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				50BB862D193DD3D400E92E46 /* WaterHeaterControl */,
-				50BB864F193DD3D500E92E46 /* WaterHeaterControlTests */,
 				50BB8626193DD3D400E92E46 /* Frameworks */,
 				50BB8625193DD3D400E92E46 /* Products */,
 				68F1931901F546448920A63B /* Pods-WaterHeaterControl.xcconfig */,
@@ -106,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				50BB8624193DD3D400E92E46 /* WaterHeaterControl.app */,
-				50BB8648193DD3D500E92E46 /* WaterHeaterControlTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,14 +95,13 @@
 		50BB862D193DD3D400E92E46 /* WaterHeaterControl */ = {
 			isa = PBXGroup;
 			children = (
+				50C1E71E198015D900BFB2D2 /* storyboard */,
 				50BB8636193DD3D400E92E46 /* WHAppDelegate.h */,
 				50BB8637193DD3D400E92E46 /* WHAppDelegate.m */,
 				50C1E71B19800AD800BFB2D2 /* WHSparkCloud.h */,
 				50C1E71C19800AD900BFB2D2 /* WHSparkCloud.m */,
-				50BB8639193DD3D500E92E46 /* Main_iPhone.storyboard */,
 				50BB865F193DE0A000E92E46 /* WHTimeSelectViewController.h */,
 				50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */,
-				50BB863C193DD3D500E92E46 /* Main_iPad.storyboard */,
 				50BB863F193DD3D500E92E46 /* WHViewController.h */,
 				50BB8640193DD3D500E92E46 /* WHViewController.m */,
 				50BB8642193DD3D500E92E46 /* Images.xcassets */,
@@ -153,22 +121,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		50BB864F193DD3D500E92E46 /* WaterHeaterControlTests */ = {
+		50C1E71E198015D900BFB2D2 /* storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				50BB8655193DD3D500E92E46 /* WaterHeaterControlTests.m */,
-				50BB8650193DD3D500E92E46 /* Supporting Files */,
+				50BB8639193DD3D500E92E46 /* Main_iPhone.storyboard */,
+				50BB863C193DD3D500E92E46 /* Main_iPad.storyboard */,
 			);
-			path = WaterHeaterControlTests;
-			sourceTree = "<group>";
-		};
-		50BB8650193DD3D500E92E46 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				50BB8651193DD3D500E92E46 /* WaterHeaterControlTests-Info.plist */,
-				50BB8652193DD3D500E92E46 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
+			name = storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,24 +152,6 @@
 			productReference = 50BB8624193DD3D400E92E46 /* WaterHeaterControl.app */;
 			productType = "com.apple.product-type.application";
 		};
-		50BB8647193DD3D500E92E46 /* WaterHeaterControlTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 50BB865C193DD3D500E92E46 /* Build configuration list for PBXNativeTarget "WaterHeaterControlTests" */;
-			buildPhases = (
-				50BB8644193DD3D500E92E46 /* Sources */,
-				50BB8645193DD3D500E92E46 /* Frameworks */,
-				50BB8646193DD3D500E92E46 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				50BB864E193DD3D500E92E46 /* PBXTargetDependency */,
-			);
-			name = WaterHeaterControlTests;
-			productName = WaterHeaterControlTests;
-			productReference = 50BB8648193DD3D500E92E46 /* WaterHeaterControlTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -220,11 +161,6 @@
 				CLASSPREFIX = WH;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = OwlPixel;
-				TargetAttributes = {
-					50BB8647193DD3D500E92E46 = {
-						TestTargetID = 50BB8623193DD3D400E92E46;
-					};
-				};
 			};
 			buildConfigurationList = 50BB861F193DD3D400E92E46 /* Build configuration list for PBXProject "WaterHeaterControl" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -240,7 +176,6 @@
 			projectRoot = "";
 			targets = (
 				50BB8623193DD3D400E92E46 /* WaterHeaterControl */,
-				50BB8647193DD3D500E92E46 /* WaterHeaterControlTests */,
 			);
 		};
 /* End PBXProject section */
@@ -254,14 +189,6 @@
 				50BB8643193DD3D500E92E46 /* Images.xcassets in Resources */,
 				50BB863B193DD3D500E92E46 /* Main_iPhone.storyboard in Resources */,
 				50BB8632193DD3D400E92E46 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		50BB8646193DD3D500E92E46 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				50BB8654193DD3D500E92E46 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,23 +240,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		50BB8644193DD3D500E92E46 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				50BB8656193DD3D500E92E46 /* WaterHeaterControlTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		50BB864E193DD3D500E92E46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 50BB8623193DD3D400E92E46 /* WaterHeaterControl */;
-			targetProxy = 50BB864D193DD3D500E92E46 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		50BB8630193DD3D400E92E46 /* InfoPlist.strings */ = {
@@ -354,14 +265,6 @@
 				50BB863D193DD3D500E92E46 /* Base */,
 			);
 			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		50BB8652193DD3D500E92E46 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				50BB8653193DD3D500E92E46 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -469,46 +372,6 @@
 			};
 			name = Release;
 		};
-		50BB865D193DD3D500E92E46 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WaterHeaterControl.app/WaterHeaterControl";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WaterHeaterControl/WaterHeaterControl-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "WaterHeaterControlTests/WaterHeaterControlTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		50BB865E193DD3D500E92E46 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WaterHeaterControl.app/WaterHeaterControl";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WaterHeaterControl/WaterHeaterControl-Prefix.pch";
-				INFOPLIST_FILE = "WaterHeaterControlTests/WaterHeaterControlTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -526,15 +389,6 @@
 			buildConfigurations = (
 				50BB865A193DD3D500E92E46 /* Debug */,
 				50BB865B193DD3D500E92E46 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		50BB865C193DD3D500E92E46 /* Build configuration list for PBXNativeTarget "WaterHeaterControlTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				50BB865D193DD3D500E92E46 /* Debug */,
-				50BB865E193DD3D500E92E46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
