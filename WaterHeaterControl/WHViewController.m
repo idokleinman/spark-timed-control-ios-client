@@ -94,7 +94,32 @@
 
 -(void)timeSelectedString:(NSString *)newTime
 {
+    // set the text
     self.timeButtonTouched.titleLabel.text = newTime;
+    
+//    animate the button
+    /*
+    [UIView animateWithDuration:0.35f animations:^{
+        CGRect frame = self.timeButtonTouched.frame;
+        frame.size.width *= 1.5;
+        frame.size.height *= 1.5;
+        [self.timeButtonTouched setFrame:frame];
+        
+    }];
+     
+     */
+     
+     /*
+                    completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.35f animations:^{
+            CGRect frame = self.timeButtonTouched.frame;
+            frame.size.width /= 1.5;
+            frame.size.height /= 1.5;
+            [self.timeButtonTouched setFrame:frame];
+         }];
+    }];
+      */
+     
 }
 
 @end

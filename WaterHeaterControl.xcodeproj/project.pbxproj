@@ -24,6 +24,7 @@
 		50BB8654193DD3D500E92E46 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50BB8652193DD3D500E92E46 /* InfoPlist.strings */; };
 		50BB8656193DD3D500E92E46 /* WaterHeaterControlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8655193DD3D500E92E46 /* WaterHeaterControlTests.m */; };
 		50BB8661193DE0A000E92E46 /* WHTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */; };
+		50C1E71D19800AD900BFB2D2 /* WHSparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C1E71C19800AD900BFB2D2 /* WHSparkCloud.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		50BB8655193DD3D500E92E46 /* WaterHeaterControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterHeaterControlTests.m; sourceTree = "<group>"; };
 		50BB865F193DE0A000E92E46 /* WHTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHTimeSelectViewController.h; sourceTree = "<group>"; };
 		50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHTimeSelectViewController.m; sourceTree = "<group>"; };
+		50C1E71B19800AD800BFB2D2 /* WHSparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHSparkCloud.h; sourceTree = "<group>"; };
+		50C1E71C19800AD900BFB2D2 /* WHSparkCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHSparkCloud.m; sourceTree = "<group>"; };
 		68F1931901F546448920A63B /* Pods-WaterHeaterControl.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WaterHeaterControl.xcconfig"; path = "Pods/Pods-WaterHeaterControl.xcconfig"; sourceTree = "<group>"; };
 		D2A8DB7CC26C490380D430E7 /* libPods-WaterHeaterControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WaterHeaterControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -125,6 +128,8 @@
 			children = (
 				50BB8636193DD3D400E92E46 /* WHAppDelegate.h */,
 				50BB8637193DD3D400E92E46 /* WHAppDelegate.m */,
+				50C1E71B19800AD800BFB2D2 /* WHSparkCloud.h */,
+				50C1E71C19800AD900BFB2D2 /* WHSparkCloud.m */,
 				50BB8639193DD3D500E92E46 /* Main_iPhone.storyboard */,
 				50BB865F193DE0A000E92E46 /* WHTimeSelectViewController.h */,
 				50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */,
@@ -302,6 +307,7 @@
 			files = (
 				50BB8661193DE0A000E92E46 /* WHTimeSelectViewController.m in Sources */,
 				50BB8641193DD3D500E92E46 /* WHViewController.m in Sources */,
+				50C1E71D19800AD900BFB2D2 /* WHSparkCloud.m in Sources */,
 				50BB8634193DD3D400E92E46 /* main.m in Sources */,
 				50BB8638193DD3D400E92E46 /* WHAppDelegate.m in Sources */,
 			);
