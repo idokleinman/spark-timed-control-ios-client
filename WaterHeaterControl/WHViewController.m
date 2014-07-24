@@ -121,12 +121,22 @@
     NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
     
     
-    for (UIButton *timeButton in self.view.subviews)
+    for (UIView *element in self.view.subviews)
     {
-        if ([timeButton isKindOfClass:[UIButton class]])
+        if ([element isKindOfClass:[UISwitch class]])
         {
+            UISwitch *enabledSwitch = (UISwitch *)element;
+            NSInteger day = (enabledSwitch.tag / 100)-1;
+            
+            configDict[weekdaySymbols[day]]=
+            @{@"enabled": [NSNumber numberWithBool:enabledSwitch.isOn]};
+        }
+
+        if ([element isKindOfClass:[UIButton class]])
+        {
+            UIButton *timeButton = (UIButton *)element;
             NSInteger day = (timeButton.tag / 100)-1;
-            NSInteger onHour, offHour, onMinute, offMinute;;
+            NSInteger onHour, offHour, onMinute, offMinute;
             NSString *timeStr = timeButton.titleLabel.text;
             
             if (timeButton.tag % 2)
@@ -175,10 +185,18 @@
 
     NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
 
-    for (UIButton *timeButton in self.view.subviews)
+    for (UIView *element in self.view.subviews)
     {
-        if ([timeButton isKindOfClass:[UIButton class]])
+        if ([element isKindOfClass:[UISwitch class]])
         {
+            UISwitch *enabledSwitch = (UISwitch *)element;
+            NSInteger day = (enabledSwitch.tag / 100)-1;
+            [enabledSwitch setOn:[configDict[weekdaySymbols[day]][@"enabled"] boolValue]];
+        }
+        
+        if ([element isKindOfClass:[UIButton class]])
+        {
+            UIButton *timeButton = (UIButton *)element;
             NSInteger day = (timeButton.tag / 100)-1;
             NSDictionary *dayConfig = configDict[weekdaySymbols[day]];
             if (dayConfig)
