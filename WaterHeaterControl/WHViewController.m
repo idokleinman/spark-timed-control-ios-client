@@ -164,6 +164,15 @@
     if (configDict[@"active"])
          [self.activeSwitch setOn:[configDict[@"active"] boolValue]];
 
+    if (configDict[@"serverTime"])
+    {
+        self.serverTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",[configDict[@"serverTime"][@"hour"] integerValue],[configDict[@"serverTime"][@"minute"] integerValue]];
+    }
+    else
+    {
+        self.serverTimeLabel.text = @"unknown";
+    }
+
     NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
 
     for (UIButton *timeButton in self.view.subviews)
