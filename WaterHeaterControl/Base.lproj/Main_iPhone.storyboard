@@ -23,7 +23,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yXY-43-csa">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yXY-43-csa">
                                 <rect key="frame" x="186" y="74" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </switch>
@@ -284,6 +284,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Water heater control" id="wFe-JJ-U0y"/>
                     <connections>
+                        <outlet property="activeSwitch" destination="yXY-43-csa" id="xbi-t7-NM8"/>
                         <outlet property="serverTimeLabel" destination="BVl-6h-Mvq" id="7Yu-1h-xT7"/>
                         <outletCollection property="dayNameLabels" destination="p9r-ma-PEc" id="OeM-ty-fCP"/>
                         <outletCollection property="dayNameLabels" destination="4PJ-c0-Isd" id="92d-Lr-Ezf"/>

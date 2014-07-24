@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B8640C9E5D084861B0EE52FB"
+               BlueprintIdentifier = "F6391D66B1504F7691383455"
                BuildableName = "libPods-WaterHeaterControl-ESTimePicker.a"
                BlueprintName = "Pods-WaterHeaterControl-ESTimePicker"
                ReferencedContainer = "container:Pods.xcodeproj">

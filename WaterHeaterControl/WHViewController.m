@@ -9,11 +9,13 @@
 #import "WHViewController.h"
 #import <ESTimePicker/ESTimePicker.h>
 #import "WHTimeSelectViewController.h"
+#import "WHSparkCloud.h"
 
 @interface WHViewController () <WHTimeSelectDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray* dayNameLabels;
 @property (weak, nonatomic) IBOutlet UILabel *serverTimeLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *activeSwitch;
 
 
 //@property (nonatomic) NSInteger buttonTag;
@@ -76,18 +78,68 @@
 
 }
 
+-(void)convertTimeStrToHoursMinutes:(NSString* )timeStr hour:(NSInteger *)hour minute:(NSInteger *)minute
+{
+    NSArray *timeStrComponents = [timeStr componentsSeparatedByString:@":"];
+    *hour = [timeStrComponents[0] intValue];
+    *minute = [timeStrComponents[1] intValue];
+
+}
+
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     WHTimeSelectViewController *timeVC = segue.destinationViewController;
     
     NSString *timeStr = self.timeButtonTouched.titleLabel.text;
-    NSArray *timeStrComponents = [timeStr componentsSeparatedByString:@":"];
-    NSInteger hour = [timeStrComponents[0] intValue];
-    NSInteger minute = [timeStrComponents[1] intValue];
+    NSInteger hour,minute;
+    [self convertTimeStrToHoursMinutes:timeStr hour:&hour minute:&minute];
     
     [timeVC setPresetHour:hour];
     [timeVC setPresetMinute:minute];
     [timeVC setDelegate:self];
+}
+
+
+
+-(NSDictionary *)createConfigDictFromCurrentSettings
+{
+    NSMutableDictionary *configDict = [[NSMutableDictionary alloc] init];
+    
+    [configDict setValue:[NSNumber numberWithBool:self.activeSwitch.isOn] forKey:@"active"]; // @{@"active" : [NSNumber numberWithBool:self.activeSwitch.isOn]};
+    NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
+    
+    
+    for (UIButton *timeButton in self.view.subviews)
+    {
+        if ([timeButton isKindOfClass:[UIButton class]])
+        {
+            NSInteger day = (timeButton.tag / 100)-1;
+            NSInteger onHour, offHour, onMinute, offMinute;;
+            NSString *timeStr = timeButton.titleLabel.text;
+            
+            if (timeButton.tag % 2)
+            {
+                
+                [self convertTimeStrToHoursMinutes:timeStr hour:&onHour minute:&onMinute];
+                
+            }
+            else
+            {
+                [self convertTimeStrToHoursMinutes:timeStr hour:&offHour minute:&offMinute];
+                
+            }
+            
+            configDict[weekdaySymbols[day]]=
+            @{@"onHour":[NSNumber numberWithInteger:onHour],
+              @"onMinute":[NSNumber numberWithInteger:onMinute],
+              @"offHour":[NSNumber numberWithInteger:offHour],
+              @"offMinute":[NSNumber numberWithInteger:offMinute]};
+        }
+    }
+    
+    //NSLog(@"%@",[configDict description]);
+    return configDict;
     
 }
 
@@ -96,6 +148,15 @@
 {
     // set the text
     self.timeButtonTouched.titleLabel.text = newTime;
+    NSDictionary *configDict = [self createConfigDictFromCurrentSettings];
+    [[WHSparkCloud sharedInstance] setConfig:configDict completion:^(NSError *error) {
+        if (error)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
+    
     
 //    animate the button
     /*
