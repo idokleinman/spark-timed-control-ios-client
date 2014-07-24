@@ -126,10 +126,13 @@
         if ([element isKindOfClass:[UISwitch class]])
         {
             UISwitch *enabledSwitch = (UISwitch *)element;
-            NSInteger day = (enabledSwitch.tag / 100)-1;
-            
-            configDict[weekdaySymbols[day]]=
-            @{@"enabled": [NSNumber numberWithBool:enabledSwitch.isOn]};
+            if (enabledSwitch.tag>=100) // ignore active switch (tag=0)
+            {
+                NSInteger day = (enabledSwitch.tag / 100)-1;
+                
+                configDict[weekdaySymbols[day]]=
+                @{@"enabled": [NSNumber numberWithBool:enabledSwitch.isOn]};
+            }
         }
 
         if ([element isKindOfClass:[UIButton class]])
@@ -190,8 +193,11 @@
         if ([element isKindOfClass:[UISwitch class]])
         {
             UISwitch *enabledSwitch = (UISwitch *)element;
-            NSInteger day = (enabledSwitch.tag / 100)-1;
-            [enabledSwitch setOn:[configDict[weekdaySymbols[day]][@"enabled"] boolValue]];
+            if (enabledSwitch.tag >= 100)
+            {
+                NSInteger day = (enabledSwitch.tag / 100)-1;
+                [enabledSwitch setOn:[configDict[weekdaySymbols[day]][@"enabled"] boolValue]];
+            }
         }
         
         if ([element isKindOfClass:[UIButton class]])
@@ -222,73 +228,58 @@
 }
 
 
--(void)newTimeSelected:(NSString *)newTime
+-(void)updateRemoteConfig
 {
-    // set the text
-    __block NSString *timeBeforeChangeStr = self.timeButtonTouched.titleLabel.text;
-    self.timeButtonTouched.titleLabel.text = newTime;
     NSDictionary *configDict = [self createConfigDictFromCurrentSettings];
-    
     __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activity.color = [UIColor blackColor];
     activity.center = self.view.center;
     [self.view addSubview:activity];
     [activity startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
-                       
     [[WHSparkCloud sharedInstance] setConfig:configDict completion:^(NSError *error) {
         [activity stopAnimating];
         [activity removeFromSuperview];
-
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
         if (error)
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            self.timeButtonTouched.titleLabel.text = timeBeforeChangeStr;
+            //self.timeButtonTouched.titleLabel.text = timeBeforeChangeStr;
             [alert show];
         }
         
     }];
-    
-    
-//    animate the button
-    /*
-    [UIView animateWithDuration:0.35f animations:^{
-        CGRect frame = self.timeButtonTouched.frame;
-        frame.size.width *= 1.5;
-        frame.size.height *= 1.5;
-        [self.timeButtonTouched setFrame:frame];
-        
-    }];
-     
-     */
-     
-     /*
-                    completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.35f animations:^{
-            CGRect frame = self.timeButtonTouched.frame;
-            frame.size.width /= 1.5;
-            frame.size.height /= 1.5;
-            [self.timeButtonTouched setFrame:frame];
-         }];
-    }];
-      */
-     
+}
+
+-(void)newTimeSelected:(NSString *)newTime
+{
+    // set the text
+    //__block NSString *timeBeforeChangeStr = self.timeButtonTouched.titleLabel.text;
+    self.timeButtonTouched.titleLabel.text = newTime;
+    [self updateRemoteConfig];
 }
 
 
 - (IBAction)activeSwitchChanged:(id)sender
 {
+    [self updateRemoteConfig];
+    /*
     __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activity.color = [UIColor blackColor];
     activity.center = self.view.center;
     [self.view addSubview:activity];
     [activity startAnimating];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
 
     
     [[WHSparkCloud sharedInstance] setActive:self.activeSwitch.isOn completion:^(NSError *error) {
 
         [activity stopAnimating];
         [activity removeFromSuperview];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+
         if (error)
         {
             [self.activeSwitch setOn:(!self.activeSwitch.isOn)]; // reverse switch
@@ -298,6 +289,14 @@
 
 
     }];
+     */
 }
+
+
+- (IBAction)enabledSwitchChanged:(id)sender {
+    [self updateRemoteConfig];
+}
+
+
 
 @end

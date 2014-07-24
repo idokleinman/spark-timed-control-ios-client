@@ -148,8 +148,8 @@
 @implementation ESTimePicker
 @synthesize wheelColor=_wheelColor,notation24Hours=_notation24Hours,type=_type,highlightColor=_highlightColor,delegate,minuteSnap,selectColor=_selectColor,font=_font,hours=_hours,minutes=_minutes,textColor=_textColor,automaticallySwitch,time,seconds=_seconds;
 
-static CGFloat const kScaleFactor = 0.2f;
-static double const kAnimationSpeed = 0.25f;
+static CGFloat const kScaleFactor = 0.3f;
+static double const kAnimationSpeed = 0.3f;
 
 #pragma mark - Constructor
 // ____________________________________________________________________________________________________________________

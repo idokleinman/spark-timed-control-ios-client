@@ -35,8 +35,8 @@
     [self.timePicker setFrame:CGRectMake(10, 100, 300, 300)];
     [self.view addSubview:self.timePicker];
     [self.timePicker setNotation24Hours:YES];
-    [self.timePicker setMinutes:(int)self.presetMinute];
-    [self.timePicker setHours:(int)self.presetHour];
+    [self.timePicker setMinutes:self.presetMinute];
+    [self.timePicker setHours:self.presetHour];
     
     self.hoursLabel.text = [NSString stringWithFormat:@"%02d",(int)self.presetHour];
     self.minutesLabel.text = [NSString stringWithFormat:@"%02d",(int)self.presetMinute];

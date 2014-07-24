@@ -48,13 +48,26 @@
             return;
         }
         
-        NSDictionary *responseDict = response;
+        // throw away info fields from spark cloud ("cmd","coreInfo","name" etc)
+        NSString *jd = response[@"result"];//[NSString stringWithFormat:@"{%@}",response[@"result"]];
+        NSData *jsonData = [jd dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *parserError; //$$$
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&parserError];
+        if (parserError)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"Failed parsing JSON result from server: %@", parserError);
+                completion(nil, parserError);
+            });
+            return;
+        }
+        
         completion(responseDict, nil);
     }];
 }
 
 
-
+/*
 -(void)getActive:(void (^)(BOOL, NSError *))completion
 {
 
@@ -84,6 +97,7 @@
         
     }];
 }
+*/
 
 -(void)setConfig:(NSDictionary *)config completion:(void (^)(NSError *))completion
 {
@@ -93,31 +107,14 @@
     req.HTTPMethod = @"POST";
     [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"]; // check
     
-    /*
-    NSMutableDictionary *requestBodyDict = [[NSMutableDictionary alloc] init];
-    
-    // prepare main request body
-    requestBodyDict[@"appVersion"] = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSMutableArray *allSearchNumbersArr = [[NSMutableArray alloc] initWithCapacity:searchNumbers.count];
-    
-    for (NSArray* contactSearchNumbers in searchNumbers)
-    {
-        [allSearchNumbersArr addObject:@{@"searchNumbers" : contactSearchNumbers}];
-    }
-    
-    if (allSearchNumbersArr.count == 0)
-    {
-        NSError *error = MakeErrorWithMessage(@"no searchNumbers found in request");
-        completion(nil, error);
-        return;
-    }
-    requestBodyDict[@"contacts"] = allSearchNumbersArr;
-     */
     
     NSError *error;
     NSData *JSONBodyData = [NSJSONSerialization dataWithJSONObject:config
                                                            options:0 //NSJSONWritingPrettyPrinted
                                                              error:&error];
+    
+    NSString* JSONBodyString = [[NSString alloc] initWithData:JSONBodyData encoding:NSUTF8StringEncoding];
+    NSLog(@"* Parsed current UI settings to JSON: \n%@",JSONBodyString);
     
     if (error)
     {
@@ -140,7 +137,7 @@
     }];
 }
 
-
+/*
 -(void)setActive:(BOOL)active completion:(void (^)(NSError *))completion
 {
     NSString *urlStr = [NSString stringWithFormat:WH_SPARK_API_ACTIVE,SPARK_DEVICE_ID,SPARK_ACCESS_TOKEN];
@@ -168,7 +165,7 @@
 }
 
 
-
+*/
 
 
 // Server utils
@@ -202,7 +199,7 @@
             }
             
             // no more retries
-            NSLog(@"SMServer API call error (no more retries): %@", error);
+            NSLog(@"WHSparkCloud API call error (no more retries): %@", error);
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion(nil, error);
             });
@@ -242,16 +239,27 @@
         
         id obj;
         //if ([httpResponse.allHeaderFields[@"Content-Type"] isEqualToString:@"application/json"])
-
+        
+        // check if relevant for spark:
+        NSLog(@"Content-Type received: %@",httpResponse.allHeaderFields[@"Content-Type"]); // debug
+        
         if ([httpResponse.allHeaderFields[@"Content-Type"] rangeOfString:@"json"].location != NSNotFound) // content is JSON (application/x-selfme-data_json)
         {
-            NSLog(@"SMServer: Parsing JSON response from server");
-            obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSError *error;
+            NSLog(@"WHSparkCloud: Parsing JSON response from server");
+            obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if (error)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"Failed parsing JSON response from server: %@", error);
+                    completion(nil, error);
+                });
+            }
 
         }
         else
         {
-            NSLog(@"SMServer: Passing binary response from server");
+            NSLog(@"WHSparkCloud: Passing binary response from server");
             obj = data; // content is binary (probably image)
 
         }
@@ -265,14 +273,14 @@
 
 
 NSError* MakeErrorWithMessage(NSString* desc) {
-    NSError* error = [NSError errorWithDomain:@"SMServer" code:0 userInfo:@{ NSLocalizedDescriptionKey: desc }];
+    NSError* error = [NSError errorWithDomain:@"WHSparkCloud" code:0 userInfo:@{ NSLocalizedDescriptionKey: desc }];
     NSLog(@"ERROR: %@",desc);
     return error;
 }
 
 NSError* MakeError(NSString* desc, NSInteger code) {
     NSString* f = [NSString stringWithFormat:@"%ld: %@", (long)code, desc];
-    NSError* error = [NSError errorWithDomain:@"SMServer" code:0 userInfo:@{ NSLocalizedDescriptionKey: f }];
+    NSError* error = [NSError errorWithDomain:@"WHSparkCloud" code:0 userInfo:@{ NSLocalizedDescriptionKey: f }];
     NSLog(@"ERROR code %ld: %@",(long)code,desc);
     return error;
 }
