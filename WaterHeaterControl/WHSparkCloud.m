@@ -38,7 +38,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:WH_SPARK_API_CONFIG,SPARK_DEVICE_ID,SPARK_ACCESS_TOKEN];
     NSURL *url = [NSURL URLWithString:[self encodeURL:urlStr]];
-    NSMutableURLRequest* req = [NSURLRequest requestWithURL:url];
+    NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:url];
     req.HTTPMethod = @"GET";
     
     [self serverRequest:req completion:^(id response, NSError *error) {
@@ -60,7 +60,8 @@
 
     NSString *urlStr = [NSString stringWithFormat:WH_SPARK_API_ACTIVE,SPARK_DEVICE_ID,SPARK_ACCESS_TOKEN];
     NSURL *url = [NSURL URLWithString:[self encodeURL:urlStr]];
-    NSMutableURLRequest* req = [NSURLRequest requestWithURL:url];
+    NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:url];
+    
     req.HTTPMethod = @"GET";
     
     [self serverRequest:req completion:^(id response, NSError *error) {

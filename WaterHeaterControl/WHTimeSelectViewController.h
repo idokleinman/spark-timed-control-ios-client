@@ -11,7 +11,7 @@
 @protocol WHTimeSelectDelegate <NSObject>
 
 @required
--(void)timeSelectedString:(NSString *)newTime;
+-(void)newTimeSelected:(NSString *)newTime;
 
 @end
 

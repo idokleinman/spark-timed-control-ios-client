@@ -54,7 +54,7 @@
 
 - (IBAction)doneButton:(id)sender {
 
-    [self.delegate timeSelectedString:[NSString stringWithFormat:@"%02d:%02d",self.timePicker.hours,self.timePicker.minutes]];
+    [self.delegate newTimeSelected:[NSString stringWithFormat:@"%02d:%02d",self.timePicker.hours,self.timePicker.minutes]];
     [self.navigationController popViewControllerAnimated:YES];
     
 }

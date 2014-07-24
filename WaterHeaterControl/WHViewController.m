@@ -16,11 +16,7 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray* dayNameLabels;
 @property (weak, nonatomic) IBOutlet UILabel *serverTimeLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *activeSwitch;
-
-
-//@property (nonatomic) NSInteger buttonTag;
 @property (strong, nonatomic) UIButton *timeButtonTouched;
-//@property (nonatomic) NSInteger lastMinutes, lastHours;
 @end
 
 @implementation WHViewController
@@ -31,6 +27,20 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    // update UI
+    [[WHSparkCloud sharedInstance] getConfig:^(NSDictionary *config, NSError *error) {
+        if (!error)
+        {
+            [self updateUIFromConfigDict:config];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            
+        }
+    }];
    
 }
 
@@ -43,6 +53,7 @@
     
     NSInteger weekday = [weekdayComponents weekday];
     
+    // make day of week bold (current)
     for (UILabel *label in self.dayNameLabels)
     {
         if (weekday == label.tag)
@@ -144,17 +155,71 @@
 }
 
 
--(void)timeSelectedString:(NSString *)newTime
+
+-(void)updateUIFromConfigDict:(NSDictionary *)configDict
+{
+    
+//    [configDict setValue:[NSNumber numberWithBool:self.activeSwitch.isOn] forKey:@"active"]; // @{@"active" : [NSNumber numberWithBool:self.activeSwitch.isOn]};
+
+    if (configDict[@"active"])
+         [self.activeSwitch setOn:[configDict[@"active"] boolValue]];
+
+    NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
+
+    for (UIButton *timeButton in self.view.subviews)
+    {
+        if ([timeButton isKindOfClass:[UIButton class]])
+        {
+            NSInteger day = (timeButton.tag / 100)-1;
+            NSDictionary *dayConfig = configDict[weekdaySymbols[day]];
+            if (dayConfig)
+            {
+                NSInteger onHour, offHour, onMinute, offMinute;
+                onHour = [configDict[weekdaySymbols[day]][@"onHour"] integerValue];
+                offHour = [configDict[weekdaySymbols[day]][@"offHour"] integerValue];
+                onMinute = [configDict[weekdaySymbols[day]][@"onMinute"] integerValue];
+                offMinute = [configDict[weekdaySymbols[day]][@"offMinute"] integerValue];
+                
+                if (timeButton.tag % 2)
+                {
+                    timeButton.titleLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",onHour,onMinute];
+                }
+                else
+                {
+                    timeButton.titleLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",offHour,offMinute];
+                }
+            }
+        }
+    }
+    
+}
+
+
+-(void)newTimeSelected:(NSString *)newTime
 {
     // set the text
+    __block NSString *timeBeforeChangeStr = self.timeButtonTouched.titleLabel.text;
     self.timeButtonTouched.titleLabel.text = newTime;
     NSDictionary *configDict = [self createConfigDictFromCurrentSettings];
+    
+    __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.color = [UIColor blackColor];
+    activity.center = self.view.center;
+    [self.view addSubview:activity];
+    [activity startAnimating];
+    
+                       
     [[WHSparkCloud sharedInstance] setConfig:configDict completion:^(NSError *error) {
+        [activity stopAnimating];
+        [activity removeFromSuperview];
+
         if (error)
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            self.timeButtonTouched.titleLabel.text = timeBeforeChangeStr;
             [alert show];
         }
+        
     }];
     
     
@@ -181,6 +246,31 @@
     }];
       */
      
+}
+
+
+- (IBAction)activeSwitchChanged:(id)sender
+{
+    __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.color = [UIColor blackColor];
+    activity.center = self.view.center;
+    [self.view addSubview:activity];
+    [activity startAnimating];
+
+    
+    [[WHSparkCloud sharedInstance] setActive:self.activeSwitch.isOn completion:^(NSError *error) {
+
+        [activity stopAnimating];
+        [activity removeFromSuperview];
+        if (error)
+        {
+            [self.activeSwitch setOn:(!self.activeSwitch.isOn)]; // reverse switch
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+
+
+    }];
 }
 
 @end
