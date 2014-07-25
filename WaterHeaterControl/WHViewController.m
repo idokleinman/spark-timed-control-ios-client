@@ -29,25 +29,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     // update UI
-    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
-    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
-    [self.view addSubview:disabledView];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    
-    [[WHSparkCloud sharedInstance] getConfig:^(NSDictionary *config, NSError *error) {
-        if (!error)
-        {
-            [self updateUIFromConfigDict:config];
-            [disabledView removeFromSuperview];
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        }
-        else
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-            
-        }
-    }];
+   
    
 }
 
@@ -66,19 +48,49 @@
         if (weekday == label.tag)
         {
             [label setFont:[UIFont boldSystemFontOfSize:18]];
+            label.textColor = [UIColor blackColor];
         }
         else
         {
             [label setFont:[UIFont systemFontOfSize:17]];
+            label.textColor = [UIColor darkGrayColor];
+
         }
         
     }
+    
+    [self syncAndUpdateUI];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+-(void)syncAndUpdateUI
+{
+    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
+    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+    [self.view addSubview:disabledView];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    [[WHSparkCloud sharedInstance] getConfig:^(NSDictionary *config, NSError *error) {
+        [disabledView removeFromSuperview];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        
+        if (!error)
+        {
+            [self updateUIFromConfigDict:config];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            
+        }
+    }];
 }
 
 - (IBAction)timeButtonsTouched:(id)sender
