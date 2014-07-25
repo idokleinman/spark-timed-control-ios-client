@@ -112,8 +112,67 @@
 }
 
 
+-(NSDictionary *)createConfigDictFromUIChange:(id)sender
+{
+    NSMutableDictionary *configDict = [[NSMutableDictionary alloc] init];
+  
+    if (sender == self.activeSwitch)
+    {
+        [configDict setValue:[NSNumber numberWithBool:self.activeSwitch.isOn] forKey:@"active"]; // @{@"active" : [NSNumber numberWithBool:self.activeSwitch.isOn]};
+        return configDict;
+    }
+    
+    NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
+    
+    if ([sender isKindOfClass:[UISwitch class]])
+    {
+        UISwitch *enabledSwitch = (UISwitch *)sender;
+        if (enabledSwitch.tag<100) // ignore active switch (tag=0)
+            return nil;
 
--(NSDictionary *)createConfigDictFromCurrentSettings
+        NSInteger day = (enabledSwitch.tag / 100)-1;
+            
+        configDict[weekdaySymbols[day]]=@{@"enabled": [NSNumber numberWithBool:enabledSwitch.isOn]};
+        return configDict;
+    }
+    
+    if ([sender isKindOfClass:[UIButton class]])
+    {
+        UIButton *timeButton = (UIButton *)sender;
+        if (timeButton.tag < 100) // check its times button only
+            return nil;
+        
+        NSInteger day = (timeButton.tag / 100)-1;
+        NSInteger onHour, offHour, onMinute, offMinute;
+        NSString *timeStr = timeButton.titleLabel.text;
+        
+        if (timeButton.tag % 2)
+        {
+            [self convertTimeStrToHoursMinutes:timeStr hour:&onHour minute:&onMinute];
+            configDict[weekdaySymbols[day]]=
+            @{@"onHour":[NSNumber numberWithInteger:onHour],
+              @"onMinute":[NSNumber numberWithInteger:onMinute]};
+            
+        }
+        else
+        {
+            [self convertTimeStrToHoursMinutes:timeStr hour:&offHour minute:&offMinute];
+            configDict[weekdaySymbols[day]]=
+            @{@"offHour":[NSNumber numberWithInteger:offHour],
+              @"offMinute":[NSNumber numberWithInteger:offMinute]};
+
+        }
+        
+        return configDict;
+        
+    }
+    
+    return nil;
+
+}
+
+/*
+-(NSDictionary *)createConfigDictFromCurrentSettings //UNUSED DUE TO 64 BYTES LIMIT ON SPARK COMMAND ARGUMENT
 {
     NSMutableDictionary *configDict = [[NSMutableDictionary alloc] init];
     
@@ -166,6 +225,8 @@
     return configDict;
     
 }
+*/
+
 
 
 
@@ -228,9 +289,10 @@
 }
 
 
--(void)updateRemoteConfig
+-(void)updateRemoteWithConfigDict:(NSDictionary *)configDict
 {
-    NSDictionary *configDict = [self createConfigDictFromCurrentSettings];
+    // NSDictionary *configDict = [self createConfigDictFromCurrentSettings]; // NOT USED NOW
+    
     __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     activity.color = [UIColor blackColor];
     activity.center = self.view.center;
@@ -246,7 +308,6 @@
         if (error)
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            //self.timeButtonTouched.titleLabel.text = timeBeforeChangeStr;
             [alert show];
         }
         
@@ -255,46 +316,24 @@
 
 -(void)newTimeSelected:(NSString *)newTime
 {
-    // set the text
-    //__block NSString *timeBeforeChangeStr = self.timeButtonTouched.titleLabel.text;
     self.timeButtonTouched.titleLabel.text = newTime;
-    [self updateRemoteConfig];
+    NSDictionary *configDict = [self createConfigDictFromUIChange:self.timeButtonTouched];
+    [self updateRemoteWithConfigDict:configDict];
 }
 
 
 - (IBAction)activeSwitchChanged:(id)sender
 {
-    [self updateRemoteConfig];
-    /*
-    __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activity.color = [UIColor blackColor];
-    activity.center = self.view.center;
-    [self.view addSubview:activity];
-    [activity startAnimating];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-
-    
-    [[WHSparkCloud sharedInstance] setActive:self.activeSwitch.isOn completion:^(NSError *error) {
-
-        [activity stopAnimating];
-        [activity removeFromSuperview];
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-
-        if (error)
-        {
-            [self.activeSwitch setOn:(!self.activeSwitch.isOn)]; // reverse switch
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-        }
-
-
-    }];
-     */
+    NSDictionary *configDict = [self createConfigDictFromUIChange:sender];
+    [self updateRemoteWithConfigDict:configDict];
 }
 
 
-- (IBAction)enabledSwitchChanged:(id)sender {
-    [self updateRemoteConfig];
+
+- (IBAction)enabledSwitchChanged:(id)sender
+{
+    NSDictionary *configDict = [self createConfigDictFromUIChange:sender];
+    [self updateRemoteWithConfigDict:configDict];
 }
 
 
