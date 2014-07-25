@@ -12,6 +12,8 @@
 	<dict>
 		<key>CD45912B-4AD7-42AE-84AC-876EF8AE3D7B</key>
 		<string>https://github.com/idokleinman/waterheater-spark-ios-client.git</string>
+		<key>DBBDAE47-1283-45E1-B445-63589BDE5775</key>
+		<string>https://github.com/idokleinman/JGSparkKit.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>WaterHeaterControl.xcworkspace</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>CD45912B-4AD7-42AE-84AC-876EF8AE3D7B</key>
 		<string>..</string>
+		<key>DBBDAE47-1283-45E1-B445-63589BDE5775</key>
+		<string>../../JGSparkKit</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/idokleinman/waterheater-spark-ios-client.git</string>
@@ -28,6 +32,14 @@
 	<string>CD45912B-4AD7-42AE-84AC-876EF8AE3D7B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DBBDAE47-1283-45E1-B445-63589BDE5775</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JGSparkKit</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-WaterHeaterControl-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-WaterHeaterControl-ESTimePicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>541194484189423CB0D03B4D</key>
+		<key>01F91C13735046BAB2BE22CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8CB340AFABF24AF2BF8BF7B4</key>
+		<key>E55AC54265F443428C7A880B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F82968FE73194B5B8E766C42</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define SPARK_ACCESS_TOKEN  @"26aa2d1d05547dfce09f4174099cef8522a1f10a"
-#define SPARK_DEVICE_ID     @"53ff73065075535147141687"
-#define WH_SPARK_API_CONFIG @"https://api.spark.io/v1/devices/%@/config?access_token=%@"
-#define WH_SPARK_API_ACTIVE @"https://api.spark.io/v1/devices/%@/active?access_token=%@"
+#define MY_SPARK_ACCESS_TOKEN  @"26aa2d1d05547dfce09f4174099cef8522a1f10a"
+#define MY_SPARK_DEVICE_ID     @"53ff73065075535147141687"
 
 @interface WHSparkCloud : NSObject
 

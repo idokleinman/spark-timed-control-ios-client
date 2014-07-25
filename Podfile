@@ -3,4 +3,5 @@ platform :ios, "7.0"
 
 target "WaterHeaterControl" do
 pod 'ESTimePicker'
+pod 'AFNetworking'
 end

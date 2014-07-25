@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5077CA2E26B74FF6B99102EE /* libPods-WaterHeaterControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A8DB7CC26C490380D430E7 /* libPods-WaterHeaterControl.a */; };
+		50B234621981DCE100716677 /* JGSparkAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B234611981DCE100716677 /* JGSparkAPI.m */; };
+		50B234651981E2BA00716677 /* WHSparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B234641981E2BA00716677 /* WHSparkCloud.m */; };
 		50BB8628193DD3D400E92E46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8627193DD3D400E92E46 /* Foundation.framework */; };
 		50BB862A193DD3D400E92E46 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8629193DD3D400E92E46 /* CoreGraphics.framework */; };
 		50BB862C193DD3D400E92E46 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB862B193DD3D400E92E46 /* UIKit.framework */; };
@@ -19,10 +21,13 @@
 		50BB8641193DD3D500E92E46 /* WHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8640193DD3D500E92E46 /* WHViewController.m */; };
 		50BB8643193DD3D500E92E46 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50BB8642193DD3D500E92E46 /* Images.xcassets */; };
 		50BB8661193DE0A000E92E46 /* WHTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */; };
-		50C1E71D19800AD900BFB2D2 /* WHSparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C1E71C19800AD900BFB2D2 /* WHSparkCloud.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50B234601981DCE100716677 /* JGSparkAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGSparkAPI.h; path = ../../JGSparkKit/Classes/JGSparkAPI.h; sourceTree = "<group>"; };
+		50B234611981DCE100716677 /* JGSparkAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGSparkAPI.m; path = ../../JGSparkKit/Classes/JGSparkAPI.m; sourceTree = "<group>"; };
+		50B234631981E2BA00716677 /* WHSparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHSparkCloud.h; sourceTree = "<group>"; };
+		50B234641981E2BA00716677 /* WHSparkCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHSparkCloud.m; sourceTree = "<group>"; };
 		50BB8624193DD3D400E92E46 /* WaterHeaterControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterHeaterControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50BB8627193DD3D400E92E46 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		50BB8629193DD3D400E92E46 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -41,8 +46,6 @@
 		50BB8649193DD3D500E92E46 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		50BB865F193DE0A000E92E46 /* WHTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHTimeSelectViewController.h; sourceTree = "<group>"; };
 		50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHTimeSelectViewController.m; sourceTree = "<group>"; };
-		50C1E71B19800AD800BFB2D2 /* WHSparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHSparkCloud.h; sourceTree = "<group>"; };
-		50C1E71C19800AD900BFB2D2 /* WHSparkCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHSparkCloud.m; sourceTree = "<group>"; };
 		68F1931901F546448920A63B /* Pods-WaterHeaterControl.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WaterHeaterControl.xcconfig"; path = "Pods/Pods-WaterHeaterControl.xcconfig"; sourceTree = "<group>"; };
 		D2A8DB7CC26C490380D430E7 /* libPods-WaterHeaterControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WaterHeaterControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -62,6 +65,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50B234661981E2C200716677 /* Cloud */ = {
+			isa = PBXGroup;
+			children = (
+				50B234601981DCE100716677 /* JGSparkAPI.h */,
+				50B234611981DCE100716677 /* JGSparkAPI.m */,
+				50B234631981E2BA00716677 /* WHSparkCloud.h */,
+				50B234641981E2BA00716677 /* WHSparkCloud.m */,
+			);
+			name = Cloud;
+			sourceTree = "<group>";
+		};
+		50B234671981E2D900716677 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				50BB8636193DD3D400E92E46 /* WHAppDelegate.h */,
+				50BB8637193DD3D400E92E46 /* WHAppDelegate.m */,
+				50BB865F193DE0A000E92E46 /* WHTimeSelectViewController.h */,
+				50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */,
+				50BB863F193DD3D500E92E46 /* WHViewController.h */,
+				50BB8640193DD3D500E92E46 /* WHViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		50BB861B193DD3D400E92E46 = {
 			isa = PBXGroup;
 			children = (
@@ -96,14 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				50C1E71E198015D900BFB2D2 /* storyboard */,
-				50BB8636193DD3D400E92E46 /* WHAppDelegate.h */,
-				50BB8637193DD3D400E92E46 /* WHAppDelegate.m */,
-				50C1E71B19800AD800BFB2D2 /* WHSparkCloud.h */,
-				50C1E71C19800AD900BFB2D2 /* WHSparkCloud.m */,
-				50BB865F193DE0A000E92E46 /* WHTimeSelectViewController.h */,
-				50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */,
-				50BB863F193DD3D500E92E46 /* WHViewController.h */,
-				50BB8640193DD3D500E92E46 /* WHViewController.m */,
+				50B234661981E2C200716677 /* Cloud */,
+				50B234671981E2D900716677 /* ViewControllers */,
 				50BB8642193DD3D500E92E46 /* Images.xcassets */,
 				50BB862E193DD3D400E92E46 /* Supporting Files */,
 			);
@@ -233,9 +254,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				50BB8661193DE0A000E92E46 /* WHTimeSelectViewController.m in Sources */,
+				50B234621981DCE100716677 /* JGSparkAPI.m in Sources */,
 				50BB8641193DD3D500E92E46 /* WHViewController.m in Sources */,
-				50C1E71D19800AD900BFB2D2 /* WHSparkCloud.m in Sources */,
 				50BB8634193DD3D400E92E46 /* main.m in Sources */,
+				50B234651981E2BA00716677 /* WHSparkCloud.m in Sources */,
 				50BB8638193DD3D400E92E46 /* WHAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

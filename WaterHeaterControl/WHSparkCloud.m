@@ -7,6 +7,7 @@
 //
 
 #import "WHSparkCloud.h"
+#import "JGSparkAPI.h"
 
 //#define SIMULATE_SERVER
 
@@ -26,8 +27,8 @@
     static WHSparkCloud* i = NULL;
     if (!i) {
         i = [[WHSparkCloud alloc] init];
-
-        
+        [JGSparkAPI sharedAPI].deviceID = MY_SPARK_DEVICE_ID;
+        [JGSparkAPI sharedAPI].accessToken = MY_SPARK_ACCESS_TOKEN;
     }
     return i;
 }
@@ -35,21 +36,14 @@
 
 -(void)getConfig:(void (^)(NSDictionary *, NSError *))completion
 {
-    
-    NSString *urlStr = [NSString stringWithFormat:WH_SPARK_API_CONFIG,SPARK_DEVICE_ID,SPARK_ACCESS_TOKEN];
-    NSURL *url = [NSURL URLWithString:[self encodeURL:urlStr]];
-    NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:url];
-    req.HTTPMethod = @"GET";
-    
-    [self serverRequest:req completion:^(id response, NSError *error) {
-        if (error) {
-            NSLog(@"ERROR: %@", error);
+    [[JGSparkAPI sharedAPI] getVariable:@"config" usingBlock:^(NSDictionary *responseObject, NSError* error) {
+        if (error)
+        {
             completion(nil, error);
             return;
         }
         
-        // throw away info fields from spark cloud ("cmd","coreInfo","name" etc)
-        NSString *jd = response[@"result"];//[NSString stringWithFormat:@"{%@}",response[@"result"]];
+        NSString *jd = responseObject[@"result"];//[NSString stringWithFormat:@"{%@}",response[@"result"]];
         NSData *jsonData = [jd dataUsingEncoding:NSUTF8StringEncoding];
         NSError *parserError; //$$$
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&parserError];
@@ -63,234 +57,34 @@
         }
         
         completion(responseDict, nil);
+
+        //NSLog(@"JGSparkAPI responseObject: %@",[responseObject description]);
     }];
-}
-
-
-/*
--(void)getActive:(void (^)(BOOL, NSError *))completion
-{
-
-    NSString *urlStr = [NSString stringWithFormat:WH_SPARK_API_ACTIVE,SPARK_DEVICE_ID,SPARK_ACCESS_TOKEN];
-    NSURL *url = [NSURL URLWithString:[self encodeURL:urlStr]];
-    NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:url];
     
-    req.HTTPMethod = @"GET";
-    
-    [self serverRequest:req completion:^(id response, NSError *error) {
-        if (error) {
-            NSLog(@"ERROR: %@", error);
-            completion(NO, error);
-            return;
-        }
-        
-        if ([response isKindOfClass:[NSNumber class]])
-        {
-            NSNumber *responseActive = response;
-            completion(([responseActive intValue]) ? YES : NO, nil);
-        }
-        else
-        {
-            NSError *error = MakeErrorWithMessage(@"Invalid response data type");
-            completion(NO, error);
-        }
-        
-    }];
 }
-*/
 
 -(void)setConfig:(NSDictionary *)config completion:(void (^)(NSError *))completion
 {
-    NSString *urlStr = [NSString stringWithFormat:WH_SPARK_API_CONFIG,SPARK_DEVICE_ID,SPARK_ACCESS_TOKEN];
-    NSURL *url = [NSURL URLWithString:[self encodeURL:urlStr]];
-    NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:url];
-    req.HTTPMethod = @"POST";
-    [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"]; // check
-    
-    
-    NSError *error;
+    NSError *parserError;
     NSData *JSONBodyData = [NSJSONSerialization dataWithJSONObject:config
                                                            options:0 //NSJSONWritingPrettyPrinted
-                                                             error:&error];
+                                                             error:&parserError];
     
     NSString* JSONBodyString = [[NSString alloc] initWithData:JSONBodyData encoding:NSUTF8StringEncoding];
-    NSLog(@"* Parsed current UI settings to JSON: \n%@",JSONBodyString);
     
-    if (error)
+    if (parserError)
     {
         NSLog(@"ERROR: Could not parse input config dictionary data to JSON for spark cloud request");
-        completion(error);
+        completion(parserError);
         return;
     }
-    
-    req.HTTPBody = JSONBodyData;
-    
-    
-    [self serverRequest:req completion:^(id response, NSError *error) {
-        if (error) {
-            NSLog(@"ERROR: %@", error);
-            completion(error);
-            return;
-        }
-        
-        completion(nil);
+
+    NSLog(@"* Parsed current UI change to JSON: \n%@",JSONBodyString);
+    [[JGSparkAPI sharedAPI] runCommand:@"config" args:@[JSONBodyString] usingBlock:^(NSDictionary *responseObject, NSError *error) {
+        NSLog(@"got responseObject:\n%@",[responseObject description]);
+        completion(error);
     }];
-}
-
-/*
--(void)setActive:(BOOL)active completion:(void (^)(NSError *))completion
-{
-    NSString *urlStr = [NSString stringWithFormat:WH_SPARK_API_ACTIVE,SPARK_DEVICE_ID,SPARK_ACCESS_TOKEN];
-    NSURL *url = [NSURL URLWithString:[self encodeURL:urlStr]];
-    NSMutableURLRequest* req = [NSMutableURLRequest requestWithURL:url];
-    req.HTTPMethod = @"POST";
-    [req setValue:@"text/html" forHTTPHeaderField:@"Content-Type"]; // check
     
-    NSString *bodyChar;
-    bodyChar = ((active) ? @"1" : @"0");
-    
-    
-    req.HTTPBody = [NSData dataWithBytes:[bodyChar cStringUsingEncoding:NSStringEncodingConversionAllowLossy] length:1];
-    
-    
-    [self serverRequest:req completion:^(id response, NSError *error) {
-        if (error) {
-            NSLog(@"ERROR: %@", error);
-            completion(error);
-            return;
-        }
-        
-        completion(nil);
-    }];
-}
-
-
-*/
-
-
-// Server utils
--(NSString *)encodeURL:(NSString *)urlString // check if can be done via API correctly
-{
-    NSString *encodedStr;
-    encodedStr = [urlString stringByReplacingOccurrencesOfString:@"%" withString:@"%25"];
-    encodedStr = [encodedStr stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-    encodedStr = [encodedStr stringByReplacingOccurrencesOfString:@"\"" withString:@"%22"];
-    encodedStr = [encodedStr stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
-    return encodedStr;
-}
-
-
-- (void)serverRequest:(NSURLRequest*)request completion:(void(^)(id response, NSError* error))completion {
-    [self serverRequest:request retries:3 completion:completion];
-    
-    //    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
-    //    [NSURLConnection connectionWithRequest:request delegate:self];
-
-}
-
-- (void)serverRequest:(NSURLRequest*)request retries:(NSInteger)retryCount completion:(void(^)(id response, NSError* error))completion {
-    NSMutableURLRequest *req = [request mutableCopy];
-    [[[NSURLSession sharedSession] dataTaskWithRequest:req completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error) {
-            if (retryCount > 1) {
-                // recurse with new retry-count
-                [self serverRequest:request retries:(retryCount - 1) completion:completion];
-                return;
-            }
-            
-            // no more retries
-            NSLog(@"WHSparkCloud API call error (no more retries): %@", error);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(nil, error);
-            });
-            return;
-        }
-        
-        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-        if (httpResponse.statusCode != 200) {
-            id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
-            NSError* e;
-            if (!obj) {
-                NSString* s = [data UTF8String];
-                if (s.length == 0) {
-                    s = @"Request Failed";
-                }
-                
-                e = MakeError(s, httpResponse.statusCode);
-            }
-            else {
-                NSString* errorMessage = obj[@"error"];
-                if (!errorMessage) {
-                    errorMessage = @"Request Failed";
-                }
-                
-                e = MakeErrorWithMessage(errorMessage);
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"API ERROR: %@", e);
-                completion(nil, e);
-            });
-            return;
-        }
-        
-        // debug:
-//        NSLog(@"Got response with headers: \n%@",[httpResponse.allHeaderFields description]);
-        
-        id obj;
-        //if ([httpResponse.allHeaderFields[@"Content-Type"] isEqualToString:@"application/json"])
-        
-        // check if relevant for spark:
-        NSLog(@"Content-Type received: %@",httpResponse.allHeaderFields[@"Content-Type"]); // debug
-        
-        if ([httpResponse.allHeaderFields[@"Content-Type"] rangeOfString:@"json"].location != NSNotFound) // content is JSON (application/x-selfme-data_json)
-        {
-            NSError *error;
-            NSLog(@"WHSparkCloud: Parsing JSON response from server");
-            obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if (error)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"Failed parsing JSON response from server: %@", error);
-                    completion(nil, error);
-                });
-            }
-
-        }
-        else
-        {
-            NSLog(@"WHSparkCloud: Passing binary response from server");
-            obj = data; // content is binary (probably image)
-
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(obj, nil);
-        });
-        
-    }] resume];
-}
-
-
-NSError* MakeErrorWithMessage(NSString* desc) {
-    NSError* error = [NSError errorWithDomain:@"WHSparkCloud" code:0 userInfo:@{ NSLocalizedDescriptionKey: desc }];
-    NSLog(@"ERROR: %@",desc);
-    return error;
-}
-
-NSError* MakeError(NSString* desc, NSInteger code) {
-    NSString* f = [NSString stringWithFormat:@"%ld: %@", (long)code, desc];
-    NSError* error = [NSError errorWithDomain:@"WHSparkCloud" code:0 userInfo:@{ NSLocalizedDescriptionKey: f }];
-    NSLog(@"ERROR code %ld: %@",(long)code,desc);
-    return error;
-}
-
-@end
-
-@implementation NSData (UTF8)
-
-- (NSString *)UTF8String {
-    return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
-}
+   }
 
 @end
