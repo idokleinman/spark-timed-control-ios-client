@@ -29,10 +29,17 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     // update UI
+    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
+    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+    [self.view addSubview:disabledView];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
     [[WHSparkCloud sharedInstance] getConfig:^(NSDictionary *config, NSError *error) {
         if (!error)
         {
             [self updateUIFromConfigDict:config];
+            [disabledView removeFromSuperview];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         }
         else
         {
@@ -294,16 +301,21 @@
     // NSDictionary *configDict = [self createConfigDictFromCurrentSettings]; // NOT USED NOW
     
     __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activity.color = [UIColor blackColor];
+    activity.color = [UIColor whiteColor];
     activity.center = self.view.center;
-    [self.view addSubview:activity];
     [activity startAnimating];
+    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
+    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.4]];
+    [self.view addSubview:disabledView];
+    [self.view addSubview:activity];
+    
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     [[WHSparkCloud sharedInstance] setConfig:configDict completion:^(NSError *error) {
         [activity stopAnimating];
         [activity removeFromSuperview];
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        [disabledView removeFromSuperview];
         
         if (error)
         {
