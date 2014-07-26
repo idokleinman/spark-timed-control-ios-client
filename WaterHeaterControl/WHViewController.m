@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray* dayNameLabels;
 @property (weak, nonatomic) IBOutlet UILabel *serverTimeLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *activeSwitch;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIButton *timeButtonTouched;
 @end
 
@@ -27,7 +28,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+//    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    self.activityIndicator.color = [UIColor blackColor];
+    self.activityIndicator.hidesWhenStopped = YES;
+    [self.activityIndicator stopAnimating];
     // update UI
    
    
@@ -71,15 +75,18 @@
 
 -(void)syncAndUpdateUI
 {
-    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
-    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
-    [self.view addSubview:disabledView];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+//    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
+//    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+//    [self.view addSubview:disabledView];
+//    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    [self.activityIndicator startAnimating];
     
     [[WHSparkCloud sharedInstance] getConfig:^(NSDictionary *config, NSError *error) {
-        [disabledView removeFromSuperview];
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//        [disabledView removeFromSuperview];
+//        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         
+        [self.activityIndicator stopAnimating];
         if (!error)
         {
             [self updateUIFromConfigDict:config];
@@ -312,23 +319,25 @@
 {
     // NSDictionary *configDict = [self createConfigDictFromCurrentSettings]; // NOT USED NOW
     
-    __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activity.color = [UIColor whiteColor];
-    activity.center = self.view.center;
-    [activity startAnimating];
-    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
-    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.4]];
-    [self.view addSubview:disabledView];
-    [self.view addSubview:activity];
-    
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+//    __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    activity.color = [UIColor whiteColor];
+//    activity.center = self.view.center;
+//    [activity startAnimating];
+//    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
+//    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.4]];
+//    [self.view addSubview:disabledView];
+//    [self.view addSubview:activity];
+//    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+
+    [self.activityIndicator startAnimating];
     
     [[WHSparkCloud sharedInstance] setConfig:configDict completion:^(NSError *error) {
-        [activity stopAnimating];
-        [activity removeFromSuperview];
-        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        [disabledView removeFromSuperview];
+//        [activity stopAnimating];
+//        [activity removeFromSuperview];
+//        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+//        [disabledView removeFromSuperview];
         
+        [self.activityIndicator stopAnimating];
         if (error)
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

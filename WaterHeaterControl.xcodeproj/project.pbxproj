@@ -10,6 +10,7 @@
 		5077CA2E26B74FF6B99102EE /* libPods-WaterHeaterControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A8DB7CC26C490380D430E7 /* libPods-WaterHeaterControl.a */; };
 		50B234621981DCE100716677 /* JGSparkAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B234611981DCE100716677 /* JGSparkAPI.m */; };
 		50B234651981E2BA00716677 /* WHSparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B234641981E2BA00716677 /* WHSparkCloud.m */; };
+		50B2346919844A1300716677 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B2346819844A1300716677 /* settings.png */; };
 		50BB8628193DD3D400E92E46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8627193DD3D400E92E46 /* Foundation.framework */; };
 		50BB862A193DD3D400E92E46 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8629193DD3D400E92E46 /* CoreGraphics.framework */; };
 		50BB862C193DD3D400E92E46 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB862B193DD3D400E92E46 /* UIKit.framework */; };
@@ -28,6 +29,7 @@
 		50B234611981DCE100716677 /* JGSparkAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGSparkAPI.m; path = ../../JGSparkKit/Classes/JGSparkAPI.m; sourceTree = "<group>"; };
 		50B234631981E2BA00716677 /* WHSparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHSparkCloud.h; sourceTree = "<group>"; };
 		50B234641981E2BA00716677 /* WHSparkCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHSparkCloud.m; sourceTree = "<group>"; };
+		50B2346819844A1300716677 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		50BB8624193DD3D400E92E46 /* WaterHeaterControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterHeaterControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50BB8627193DD3D400E92E46 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		50BB8629193DD3D400E92E46 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -126,6 +128,7 @@
 				50B234661981E2C200716677 /* Cloud */,
 				50B234671981E2D900716677 /* ViewControllers */,
 				50BB8642193DD3D500E92E46 /* Images.xcassets */,
+				50B2346819844A1300716677 /* settings.png */,
 				50BB862E193DD3D400E92E46 /* Supporting Files */,
 			);
 			path = WaterHeaterControl;
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50BB863E193DD3D500E92E46 /* Main_iPad.storyboard in Resources */,
+				50B2346919844A1300716677 /* settings.png in Resources */,
 				50BB8643193DD3D500E92E46 /* Images.xcassets in Resources */,
 				50BB863B193DD3D500E92E46 /* Main_iPhone.storyboard in Resources */,
 				50BB8632193DD3D400E92E46 /* InfoPlist.strings in Resources */,
