@@ -128,13 +128,16 @@
 {
     WHTimeSelectViewController *timeVC = segue.destinationViewController;
     
-    NSString *timeStr = self.timeButtonTouched.titleLabel.text;
-    NSInteger hour,minute;
-    [self convertTimeStrToHoursMinutes:timeStr hour:&hour minute:&minute];
-    
-    [timeVC setPresetHour:hour];
-    [timeVC setPresetMinute:minute];
-    [timeVC setDelegate:self];
+    if ([timeVC isKindOfClass:[WHTimeSelectViewController class]])
+    {
+        NSString *timeStr = self.timeButtonTouched.titleLabel.text;
+        NSInteger hour,minute;
+        [self convertTimeStrToHoursMinutes:timeStr hour:&hour minute:&minute];
+        
+        [timeVC setPresetHour:hour];
+        [timeVC setPresetMinute:minute];
+        [timeVC setDelegate:self];
+    }
 }
 
 

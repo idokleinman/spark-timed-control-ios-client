@@ -11,6 +11,7 @@
 		50B234621981DCE100716677 /* JGSparkAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B234611981DCE100716677 /* JGSparkAPI.m */; };
 		50B234651981E2BA00716677 /* WHSparkCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B234641981E2BA00716677 /* WHSparkCloud.m */; };
 		50B2346919844A1300716677 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 50B2346819844A1300716677 /* settings.png */; };
+		50B2346C19844E9D00716677 /* WHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B2346B19844E9D00716677 /* WHSettingsViewController.m */; };
 		50BB8628193DD3D400E92E46 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8627193DD3D400E92E46 /* Foundation.framework */; };
 		50BB862A193DD3D400E92E46 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB8629193DD3D400E92E46 /* CoreGraphics.framework */; };
 		50BB862C193DD3D400E92E46 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BB862B193DD3D400E92E46 /* UIKit.framework */; };
@@ -30,6 +31,8 @@
 		50B234631981E2BA00716677 /* WHSparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHSparkCloud.h; sourceTree = "<group>"; };
 		50B234641981E2BA00716677 /* WHSparkCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHSparkCloud.m; sourceTree = "<group>"; };
 		50B2346819844A1300716677 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		50B2346A19844E9D00716677 /* WHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHSettingsViewController.h; sourceTree = "<group>"; };
+		50B2346B19844E9D00716677 /* WHSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHSettingsViewController.m; sourceTree = "<group>"; };
 		50BB8624193DD3D400E92E46 /* WaterHeaterControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterHeaterControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50BB8627193DD3D400E92E46 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		50BB8629193DD3D400E92E46 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -87,6 +90,8 @@
 				50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */,
 				50BB863F193DD3D500E92E46 /* WHViewController.h */,
 				50BB8640193DD3D500E92E46 /* WHViewController.m */,
+				50B2346A19844E9D00716677 /* WHSettingsViewController.h */,
+				50B2346B19844E9D00716677 /* WHSettingsViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 				50B234621981DCE100716677 /* JGSparkAPI.m in Sources */,
 				50BB8641193DD3D500E92E46 /* WHViewController.m in Sources */,
 				50BB8634193DD3D400E92E46 /* main.m in Sources */,
+				50B2346C19844E9D00716677 /* WHSettingsViewController.m in Sources */,
 				50B234651981E2BA00716677 /* WHSparkCloud.m in Sources */,
 				50BB8638193DD3D400E92E46 /* WHAppDelegate.m in Sources */,
 			);
