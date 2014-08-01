@@ -38,10 +38,15 @@
     [self.timePicker setMinutes:self.presetMinute];
     [self.timePicker setHours:self.presetHour];
     
+    self.timePicker.wheelColor = [UIColor colorWithRed:0.94f green:0.94f blue:0.94f alpha:1.0];
+    self.timePicker.selectColor = [UIColor colorWithRed:0.08f green:0.47f blue:0.92f alpha:0.7f];
+    self.timePicker.highlightColor = [UIColor colorWithRed:0.08f green:0.47f blue:0.92f alpha:0.5f];
+    self.timePicker.textColor = [UIColor blackColor];
+    
     self.hoursLabel.text = [NSString stringWithFormat:@"%02d",(int)self.presetHour];
     self.minutesLabel.text = [NSString stringWithFormat:@"%02d",(int)self.presetMinute];
     
-
+    
 }
 
 

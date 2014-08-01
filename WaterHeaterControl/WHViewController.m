@@ -322,23 +322,18 @@
 {
     // NSDictionary *configDict = [self createConfigDictFromCurrentSettings]; // NOT USED NOW
     
-//    __block UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//    activity.color = [UIColor whiteColor];
-//    activity.center = self.view.center;
-//    [activity startAnimating];
-//    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
-//    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.4]];
-//    [self.view addSubview:disabledView];
-//    [self.view addSubview:activity];
-//    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
+    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.15f]];
+    [self.view addSubview:disabledView];
 
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     [self.activityIndicator startAnimating];
     
     [[WHSparkCloud sharedInstance] setConfig:configDict completion:^(NSError *error) {
 //        [activity stopAnimating];
 //        [activity removeFromSuperview];
-//        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-//        [disabledView removeFromSuperview];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        [disabledView removeFromSuperview];
         
         [self.activityIndicator stopAnimating];
         if (error)
