@@ -1,4 +1,7 @@
-waterheater-spark-ios-client
-============================
+Spark weekly timer outlet/water-heater remote control iOS app
+www.spark.io
 
-iOS client for Waterheater control unit based on Spark.io unit &amp; cloud
+Uses cocoapods:
+ESTimePicker (nice Android style time picker for iOS)
+AFNetworking (Networking made easy)
+JGSparkAPI   (Spark cloud API simple wrapper, thanks to spark.io community)
