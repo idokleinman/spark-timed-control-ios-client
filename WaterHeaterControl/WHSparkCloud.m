@@ -51,6 +51,7 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Failed parsing JSON result from server: %@", parserError);
+                NSLog(@"JSON config from Spark server:\n%@",jd);
                 completion(nil, parserError);
             });
             return;
