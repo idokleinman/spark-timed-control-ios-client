@@ -5,36 +5,48 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>B782E276-42B0-476D-82D5-C3977E6DAE88</string>
+	<string>B9AE2797-9042-451D-9707-B7D83B1D9CBE</string>
 	<key>IDESourceControlProjectName</key>
 	<string>WaterHeaterControl</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>BA962AD1-1A25-4525-AB38-B498B5AC6597</key>
-		<string>https://github.com/idokleinman/waterheater-spark-ios-client.git</string>
+		<key>9B45006E-B705-42F0-B68E-E4983BD0ABC8</key>
+		<string>https://github.com/idokleinman/spark-timed-control-ios-client.git</string>
+		<key>DBBDAE47-1283-45E1-B445-63589BDE5775</key>
+		<string>https://github.com/idokleinman/JGSparkKit.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>WaterHeaterControl.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>BA962AD1-1A25-4525-AB38-B498B5AC6597</key>
+		<key>9B45006E-B705-42F0-B68E-E4983BD0ABC8</key>
 		<string>../..</string>
+		<key>DBBDAE47-1283-45E1-B445-63589BDE5775</key>
+		<string>../../../JGSparkKit</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/idokleinman/waterheater-spark-ios-client.git</string>
+	<string>https://github.com/idokleinman/spark-timed-control-ios-client.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>BA962AD1-1A25-4525-AB38-B498B5AC6597</string>
+	<string>9B45006E-B705-42F0-B68E-E4983BD0ABC8</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>BA962AD1-1A25-4525-AB38-B498B5AC6597</string>
+			<string>DBBDAE47-1283-45E1-B445-63589BDE5775</string>
 			<key>IDESourceControlWCCName</key>
-			<string>waterheater-spark-ios-client</string>
+			<string>JGSparkKit</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9B45006E-B705-42F0-B68E-E4983BD0ABC8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>spark-timed-control-ios</string>
 		</dict>
 	</array>
 </dict>

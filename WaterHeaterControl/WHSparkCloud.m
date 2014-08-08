@@ -8,7 +8,7 @@
 
 #import "WHSparkCloud.h"
 #import "JGSparkAPI.h"
-
+#import "WHDeviceIDTokenDefs.h"
 //#define SIMULATE_SERVER
 
 @interface WHSparkCloud()

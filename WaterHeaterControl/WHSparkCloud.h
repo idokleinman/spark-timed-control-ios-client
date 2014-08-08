@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define MY_SPARK_ACCESS_TOKEN  @"26aa2d1d05547dfce09f4174099cef8522a1f10a"
-#define MY_SPARK_DEVICE_ID     @"53ff73065075535147141687"
-
 @interface WHSparkCloud : NSObject
 
 + (WHSparkCloud *)sharedInstance;

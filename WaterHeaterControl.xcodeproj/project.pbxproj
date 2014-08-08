@@ -25,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50603D6A19956F520050DEB5 /* WHDeviceIDTokenDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHDeviceIDTokenDefs.h; sourceTree = "<group>"; };
 		50B234601981DCE100716677 /* JGSparkAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGSparkAPI.h; path = ../../JGSparkKit/Classes/JGSparkAPI.h; sourceTree = "<group>"; };
 		50B234611981DCE100716677 /* JGSparkAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGSparkAPI.m; path = ../../JGSparkKit/Classes/JGSparkAPI.m; sourceTree = "<group>"; };
 		50B234631981E2BA00716677 /* WHSparkCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHSparkCloud.h; sourceTree = "<group>"; };
@@ -71,6 +72,7 @@
 		50B234661981E2C200716677 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
+				50603D6A19956F520050DEB5 /* WHDeviceIDTokenDefs.h */,
 				50B234601981DCE100716677 /* JGSparkAPI.h */,
 				50B234611981DCE100716677 /* JGSparkAPI.m */,
 				50B234631981E2BA00716677 /* WHSparkCloud.h */,
