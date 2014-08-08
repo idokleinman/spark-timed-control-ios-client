@@ -8,6 +8,8 @@
 
 #import "WHSettingsViewController.h"
 #import "WHSparkCloud.h"
+#import "WHDeviceIDTokenDefs.h"
+
 @interface WHSettingsViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *deviceIDTextField;
 @property (weak, nonatomic) IBOutlet UITextField *accessTokenTextField;
