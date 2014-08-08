@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSArray* weekdaySymbols;// = @[@"Sunday",@"Monday",@"Tuesday",@"Wednesday",@"Thursday",@"Friday",@"Saturday"];
+
+
 @interface WHViewController : UIViewController
 
 @end

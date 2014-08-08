@@ -19,7 +19,6 @@
 		50BB8634193DD3D400E92E46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8633193DD3D400E92E46 /* main.m */; };
 		50BB8638193DD3D400E92E46 /* WHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8637193DD3D400E92E46 /* WHAppDelegate.m */; };
 		50BB863B193DD3D500E92E46 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50BB8639193DD3D500E92E46 /* Main_iPhone.storyboard */; };
-		50BB863E193DD3D500E92E46 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50BB863C193DD3D500E92E46 /* Main_iPad.storyboard */; };
 		50BB8641193DD3D500E92E46 /* WHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8640193DD3D500E92E46 /* WHViewController.m */; };
 		50BB8643193DD3D500E92E46 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50BB8642193DD3D500E92E46 /* Images.xcassets */; };
 		50BB8661193DE0A000E92E46 /* WHTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BB8660193DE0A000E92E46 /* WHTimeSelectViewController.m */; };
@@ -44,7 +43,6 @@
 		50BB8636193DD3D400E92E46 /* WHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WHAppDelegate.h; sourceTree = "<group>"; };
 		50BB8637193DD3D400E92E46 /* WHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WHAppDelegate.m; sourceTree = "<group>"; };
 		50BB863A193DD3D500E92E46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		50BB863D193DD3D500E92E46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		50BB863F193DD3D500E92E46 /* WHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WHViewController.h; sourceTree = "<group>"; };
 		50BB8640193DD3D500E92E46 /* WHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WHViewController.m; sourceTree = "<group>"; };
 		50BB8642193DD3D500E92E46 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				50BB8639193DD3D500E92E46 /* Main_iPhone.storyboard */,
-				50BB863C193DD3D500E92E46 /* Main_iPad.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -214,7 +211,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50BB863E193DD3D500E92E46 /* Main_iPad.storyboard in Resources */,
 				50B2346919844A1300716677 /* settings.png in Resources */,
 				50BB8643193DD3D500E92E46 /* Images.xcassets in Resources */,
 				50BB863B193DD3D500E92E46 /* Main_iPhone.storyboard in Resources */,
@@ -289,14 +285,6 @@
 				50BB863A193DD3D500E92E46 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		50BB863C193DD3D500E92E46 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				50BB863D193DD3D500E92E46 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -385,6 +373,7 @@
 				INFOPLIST_FILE = "WaterHeaterControl/WaterHeaterControl-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -400,6 +389,7 @@
 				INFOPLIST_FILE = "WaterHeaterControl/WaterHeaterControl-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

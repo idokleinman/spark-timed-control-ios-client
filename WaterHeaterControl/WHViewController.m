@@ -11,13 +11,19 @@
 #import "WHTimeSelectViewController.h"
 #import "WHSparkCloud.h"
 
+
 @interface WHViewController () <WHTimeSelectDelegate>
+{
+    NSArray* weekdaySymbols;
+
+}
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray* dayNameLabels;
 @property (weak, nonatomic) IBOutlet UILabel *serverTimeLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *activeSwitch;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIButton *timeButtonTouched;
+@property (strong, nonatomic) NSTimer* refreshUITimer;
 @end
 
 @implementation WHViewController
@@ -27,14 +33,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-//    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
     self.activityIndicator.color = [UIColor blackColor];
     self.activityIndicator.hidesWhenStopped = YES;
     [self.activityIndicator stopAnimating];
-    // update UI
-   
-   
+    
+    // init constant for week days names
+    weekdaySymbols = @[@"Sunday",@"Monday",@"Tuesday",@"Wednesday",@"Thursday",@"Friday",@"Saturday"];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -63,7 +67,14 @@
         
     }
     
-    [self syncAndUpdateUI];
+    [self syncAndUpdateUI:self];
+    self.refreshUITimer = [NSTimer scheduledTimerWithTimeInterval:30.0f target:self selector:@selector(syncAndUpdateUI:) userInfo:nil repeats:YES];
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    self.refreshUITimer = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,7 +84,7 @@
 }
 
 
--(void)syncAndUpdateUI
+-(void)syncAndUpdateUI:(id)sender
 {
 //    __block UIView *disabledView = [[UIView alloc] initWithFrame:self.view.frame];
 //    [disabledView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
@@ -89,7 +100,9 @@
         [self.activityIndicator stopAnimating];
         if (!error)
         {
-            [self updateUIFromConfigDict:config];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateUIFromConfigDict:config];
+            });
         }
         else
         {
@@ -151,7 +164,6 @@
         return configDict;
     }
     
-    NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
     
     if ([sender isKindOfClass:[UISwitch class]])
     {
@@ -206,8 +218,8 @@
     NSMutableDictionary *configDict = [[NSMutableDictionary alloc] init];
     
     [configDict setValue:[NSNumber numberWithBool:self.activeSwitch.isOn] forKey:@"active"]; // @{@"active" : [NSNumber numberWithBool:self.activeSwitch.isOn]};
-    NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
-    
+//    NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
+ 
     
     for (UIView *element in self.view.subviews)
     {
@@ -269,14 +281,14 @@
 
     if (configDict[@"serverTime"])
     {
-        self.serverTimeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",[configDict[@"serverTime"][@"hour"] integerValue],[configDict[@"serverTime"][@"minute"] integerValue]];
+        self.serverTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d",[configDict[@"serverTime"][@"hour"] intValue],[configDict[@"serverTime"][@"minute"] intValue]];
     }
     else
     {
         self.serverTimeLabel.text = @"unknown";
     }
-
-    NSArray *weekdaySymbols = [[[NSDateFormatter alloc] init] weekdaySymbols];
+    
+//    weekdaySymbols =  //[[[NSDateFormatter alloc] init] weekdaySymbols];
 
     for (UIView *element in self.view.subviews)
     {
@@ -298,18 +310,18 @@
             if (dayConfig)
             {
                 NSInteger onHour, offHour, onMinute, offMinute;
-                onHour = [configDict[weekdaySymbols[day]][@"onHour"] integerValue];
-                offHour = [configDict[weekdaySymbols[day]][@"offHour"] integerValue];
-                onMinute = [configDict[weekdaySymbols[day]][@"onMinute"] integerValue];
-                offMinute = [configDict[weekdaySymbols[day]][@"offMinute"] integerValue];
+                onHour = [configDict[weekdaySymbols[day]][@"onHour"] intValue];
+                offHour = [configDict[weekdaySymbols[day]][@"offHour"] intValue];
+                onMinute = [configDict[weekdaySymbols[day]][@"onMinute"] intValue];
+                offMinute = [configDict[weekdaySymbols[day]][@"offMinute"] intValue];
                 
                 if (timeButton.tag % 2)
                 {
-                    timeButton.titleLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",onHour,onMinute];
+                    timeButton.titleLabel.text = [NSString stringWithFormat:@"%02d:%02d",onHour,onMinute];
                 }
                 else
                 {
-                    timeButton.titleLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",offHour,offMinute];
+                    timeButton.titleLabel.text = [NSString stringWithFormat:@"%02d:%02d",offHour,offMinute];
                 }
             }
         }
@@ -357,6 +369,8 @@
 {
     NSDictionary *configDict = [self createConfigDictFromUIChange:sender];
     [self updateRemoteWithConfigDict:configDict];
+    
+    [self syncAndUpdateUI:self];
 }
 
 
@@ -365,6 +379,8 @@
 {
     NSDictionary *configDict = [self createConfigDictFromUIChange:sender];
     [self updateRemoteWithConfigDict:configDict];
+    
+    [self syncAndUpdateUI:self];
 }
 
 
